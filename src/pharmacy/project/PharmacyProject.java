@@ -36,7 +36,7 @@ public class PharmacyProject extends javax.swing.JFrame {
 
     public void ShowConfirmModal(String message, String address) {
         JDialog newWindow = new JDialog((JFrame) null, "Confirmar la orden", true);
-        newWindow.setSize(500, 200);
+        newWindow.setSize(700, 200);
         newWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         newWindow.addWindowListener(new WindowAdapter() {
             @Override
@@ -449,7 +449,7 @@ public class PharmacyProject extends javax.swing.JFrame {
                 address = "Para la farmacia situada en Calle de la Rosa n.28";
             }
             if (drugBranches.contains("Secundaria")) {
-                address += " Calle Alcazabilla n.3";
+                address += " y para la situada en Calle Alcazabilla n.3";
             }
 
             String orderMessage = String.format("%s unidades del %s %s", drugQuatity, drugType, drugName);
