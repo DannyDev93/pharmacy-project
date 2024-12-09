@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 /**
@@ -33,7 +34,7 @@ public class PharmacyProject extends javax.swing.JFrame {
         initComponents();
     }
 
-    public void ShowConfirmModal(String message) {
+    public void ShowConfirmModal(String message, String address) {
         JDialog newWindow = new JDialog((JFrame) null, "Confirmar la orden", true);
         newWindow.setSize(500, 200);
         newWindow.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -50,9 +51,15 @@ public class PharmacyProject extends javax.swing.JFrame {
         newWindow.setLocation(x, y);
 
         newWindow.setLayout(new BorderLayout());
-        JLabel label = new JLabel(message);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        newWindow.add(label, BorderLayout.CENTER);
+
+        JPanel labelsPanel = new JPanel(new GridLayout(2, 1));
+        JLabel label = new JLabel(message, JLabel.CENTER);
+        JLabel labelAddress = new JLabel(address, JLabel.CENTER);
+
+        labelsPanel.add(label);
+        labelsPanel.add(labelAddress);
+
+        newWindow.add(labelsPanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JButton confirmButton = new JButton("Confirmar");
@@ -69,13 +76,12 @@ public class PharmacyProject extends javax.swing.JFrame {
                 PrincipalBranchOption.setSelected(false);
                 SecundariaBranchOption.setSelected(false);
 
-                JDialog confirmed = new JDialog((JFrame) null, "¡Orden confirmada!", true);
+                JDialog confirmed = new JDialog((JFrame) null, "¡Pedido enviado!", true);
                 confirmed.setSize(300, 200);
                 confirmed.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                 confirmed.setLocation(x, y);
                 confirmed.setLayout(new FlowLayout(FlowLayout.CENTER));
-                JLabel confirmationLabel = new JLabel("¡Gracias por su compra!");
-                confirmationLabel.setHorizontalAlignment(JLabel.CENTER);
+                JLabel confirmationLabel = new JLabel("¡Gracias por su compra!", JLabel.CENTER);
                 confirmed.add(confirmationLabel);
                 confirmed.setVisible(true);
             }
@@ -437,9 +443,18 @@ public class PharmacyProject extends javax.swing.JFrame {
             ErrorPanel.setVisible(false);
             ErrorDisplay.setText("");
 
+            var address = "";
+
+            if (drugBranches.contains("Principal")) {
+                address = "Para la farmacia situada en Calle de la Rosa n.28";
+            }
+            if (drugBranches.contains("Secundaria")) {
+                address += " Calle Alcazabilla n.3";
+            }
+
             String orderMessage = String.format("%s unidades del %s %s", drugQuatity, drugType, drugName);
 
-            ShowConfirmModal(orderMessage);
+            ShowConfirmModal(orderMessage, address);
         }
 
 
